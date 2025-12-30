@@ -8,6 +8,24 @@
       <div class="badge">实时盘后速览</div>
     </header>
 
+    <section class="guide" :class="{ open: showGuide }">
+      <div class="guide-title" @click="toggleGuide">
+        <div>
+          <p class="eyebrow">使用提示</p>
+          <h3>如何快速看盘</h3>
+        </div>
+        <button class="toggle">{{ showGuide ? '收起' : '展开' }}</button>
+      </div>
+      <div v-if="showGuide" class="guide-body">
+        <ul>
+          <li><strong>筛选：</strong>顶栏搜索股票/代码/题材，或按行业、游资席位勾选筛选列表。</li>
+          <li><strong>查看详情：</strong>点击表格中的任意股票行，右侧同步展示涨停逻辑、龙虎榜与近十日 K 线。</li>
+          <li><strong>连板与游资：</strong>统计卡片实时显示连板高度、知名游资席位数量，便于识别情绪龙头。</li>
+        </ul>
+        <p class="hint">当前为示例数据，接入实盘接口后即可每日打开即用。</p>
+      </div>
+    </section>
+
     <section class="summary-grid">
       <div class="card">
         <p class="label">今日涨停数量</p>
@@ -360,7 +378,8 @@ export default {
       keyword: '',
       industry: '',
       onlyHotMoney: false,
-      selectedStock: stocks[0]
+      selectedStock: stocks[0],
+      showGuide: true
     }
   },
   computed: {
@@ -414,6 +433,9 @@ export default {
   methods: {
     selectStock (stock) {
       this.selectedStock = stock
+    },
+    toggleGuide () {
+      this.showGuide = !this.showGuide
     }
   }
 }
@@ -457,6 +479,60 @@ body {
 .subtitle {
   margin: 8px 0 0;
   color: #94a3b8;
+}
+
+.guide {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  transition: all 0.2s ease;
+}
+
+.guide.open {
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+}
+
+.guide-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.guide-title h3 {
+  margin: 2px 0 0;
+  font-size: 16px;
+}
+
+.guide .eyebrow {
+  margin: 0;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+}
+
+.guide .toggle {
+  background: rgba(59, 130, 246, 0.12);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.guide-body {
+  margin-top: 10px;
+  color: #cbd5e1;
+}
+
+.guide-body ul {
+  padding-left: 18px;
+  margin: 0 0 8px;
+  line-height: 1.6;
 }
 
 .badge {

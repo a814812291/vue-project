@@ -30,23 +30,19 @@ if %errorlevel% neq 0 (
 )
 
 echo [INFO] 升級 pip 並安裝依賴...
-python -m pip install --upgrade pip
+%PYTHON_CMD% -m pip install --upgrade pip
 if %errorlevel% neq 0 (
     echo [ERROR] pip 升級失敗。
     goto :pause
 )
-python -m pip install -r requirements.txt
+%PYTHON_CMD% -m pip install -r requirements.txt
 if %errorlevel% neq 0 (
     echo [ERROR] 依賴安裝失敗，請檢查網絡或鏡像源。
     goto :pause
 )
 
 echo [INFO] 初始化 SQLite 數據庫...
-python - <<PY
-from backend.app.services import cache
-cache.init_db()
-print("DB ready at backend/app/data/cache.db")
-PY
+%PYTHON_CMD% -c "from backend.app.services import cache; cache.init_db(); print('DB ready at backend/app/data/cache.db')"
 if %errorlevel% neq 0 (
     echo [ERROR] 數據庫初始化失敗。
     goto :pause

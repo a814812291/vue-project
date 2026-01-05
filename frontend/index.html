@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>A股每日复盘面板</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <h1>A股每日复盘 Dashboard</h1>
+      <p>一眼看全涨停梯队、题材热度、龙虎榜与 K 线细节</p>
+    </div>
+    <div class="controls">
+      <label>交易日：</label>
+      <input type="text" id="dateInput" placeholder="auto 或 20240101" />
+      <button id="refreshBtn">刷新</button>
+    </div>
+  </header>
+
+  <section class="kpis" id="kpiContainer"></section>
+
+  <section class="themes">
+    <div class="panel">
+      <h3>主线题材 TOP10</h3>
+      <ul id="themeList"></ul>
+    </div>
+    <div class="panel">
+      <h3>筛选</h3>
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="代码/名称/概念" />
+        <select id="consecutiveFilter">
+          <option value="">全部连板</option>
+          <option value="1">首板</option>
+          <option value="2">2连板+</option>
+          <option value="3">3连板+</option>
+        </select>
+        <select id="hotMoneyFilter">
+          <option value="">游资/龙虎榜</option>
+          <option value="hot">游资参与</option>
+          <option value="lhb">龙虎榜</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <main class="layout">
+    <section class="panel table-panel">
+      <div class="table-wrapper">
+        <table id="limitTable">
+          <thead>
+            <tr>
+              <th data-sort="ts_code">代码</th>
+              <th data-sort="name">名称</th>
+              <th data-sort="pct_chg">涨幅%</th>
+              <th data-sort="consecutive">连板</th>
+              <th data-sort="fd_amount">封单(万)</th>
+              <th data-sort="amount">成交额(万)</th>
+              <th data-sort="first_time">首次封板</th>
+              <th data-sort="last_time">最后封板</th>
+              <th data-sort="open_times">炸板次数</th>
+              <th>行业/概念</th>
+              <th>龙虎榜</th>
+              <th>游资</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+    <aside class="panel detail" id="detailPanel">
+      <h3 id="detailTitle">单股详情</h3>
+      <div id="detailInfo" class="detail-content">点击左侧行查看详情</div>
+      <div id="chart" class="chart"></div>
+    </aside>
+  </main>
+
+  <script src="./main.js"></script>
+</body>
+</html>

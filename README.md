@@ -16,7 +16,7 @@
    ```bat
    setup.bat
    ```
-   这一步会创建 `.venv` 虚拟环境、安装依赖并初始化 `backend/app/data/cache.db`。
+   这一步会创建 `.venv` 虚拟环境、安装依赖并通过 `backend/init_db.py` 初始化 `backend/app/data/cache.db`（避免不同编码下的命令行解析问题）。
 
 2. **刷新数据**（可随时重复）
    ```bat

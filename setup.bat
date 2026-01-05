@@ -42,7 +42,7 @@ if %errorlevel% neq 0 (
 )
 
 echo [INFO] 初始化 SQLite 數據庫...
-%PYTHON_CMD% -c "from backend.app.services import cache; cache.init_db(); print('DB ready at backend/app/data/cache.db')"
+%PYTHON_CMD% backend\init_db.py
 if %errorlevel% neq 0 (
     echo [ERROR] 數據庫初始化失敗。
     goto :pause
